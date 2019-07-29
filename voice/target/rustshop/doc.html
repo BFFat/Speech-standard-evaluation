@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Opineo, Feedback Collection and Polling Widget - Documentation</title>
+<link rel="alternate" type="application/rss+xml" title="egrappler.com" href="feed/index.html">
+<link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
+        type="text/css">
+<link rel="stylesheet" href="css/green/style.css">
+<link rel="stylesheet" href="other/style.css">
+<link rel="stylesheet" href="css/green/prettify.css">
+
+<script src="js/jquery.min.js"></script> 
+    <link href="assets/css/payModal.css" rel="stylesheet" /> 
+		    <script src="assets/js/bootstrap/bootstrap.js"></script>
+<script src="HZRecorder.js"></script>
+
+</head>
+<style>
+	    .ModalStyle{
+	    top: 1%;
+		left: 5%;
+	    }
+		
+		.ModalStyle1{
+		top: 15%;
+		}
+			
+			.start{
+display: inline-block;
+
+background-image: url("images/start.png");
+
+background-position: center center; /*图片显示的位置*/
+
+width: 16px; /*设置图片显示的宽*/
+
+height: 16px; /*图片显示的高*/
+
+}
+
+.stop{
+display: inline-block;
+
+background-image: url("images/stop.png");
+
+background-position: center center; /*图片显示的位置*/
+
+width: 16px; /*设置图片显示的宽*/
+
+height: 16px; /*图片显示的高*/
+
+}
+
+	    </style>
+		
+
+
+<body>	
+
+<header>
+  <div class="container">
+    <h2 class="docs-header"> 语音小助手 - 用户文档</h2>
+  </div>
+</header>
+<section>
+  <div class="container">
+    <ul class="docs-nav" id="menu-left">
+      <li><strong>关于录制</strong></li>
+      <li><a href="#text1" class=" ">准备工作</a></li>
+			<li><a href="#text2" class=" ">录制结果</a></li>
+			<li><a href="#text3" class=" ">录制限制</a></li>
+			<li class="separator"></li>
+      <li><strong>系统评分</strong></li>
+      <li><a href="#text4" class=" ">评分细则</a></li>
+	  <li><strong>开始录制</strong></li>
+	  <li><a href="index.html">点击这里开始录制</a></li>
+    </ul>
+
+
+    <div class="docs-content">
+      <h2> 录制</h2>
+      <h3 id="text1"> 准备工作</h3>
+      
+      <p> 请务必保证麦克风为畅通状态，若系统提示"浏览器不支持麦克风"则请检查兼容性</p>
+			
+			<h3 id="text2"> 录制结果</h3>
+			
+			<p> 当录制完成时，系统会对期间的语音进行识别，可能存在以下结果 </p>
+			
+      <ul>
+        <li>语音不清晰，请检查录制环境，建议在安静的环境下进行</li>
+        <li>识别成功，可以获得您的朗读评分</li>
+        <li>系统错误，系统有待完善请联系管理员</li>
+      </ul>
+			
+			<h3 id="text3"> 录制限制</h3>
+			
+			<p> 录制期间存在以下限制 </p>
+			
+			<ul>
+			  <li>请尽量保持环境无噪音，避免识别错误</li>
+			  <li>录制时间请勿超过1分钟，系统不支持长语音识别</li>
+			  <li>录制期间请将普通话，系统仅支持普通话</li>
+			</ul>
+			
+			<h2> 系统评分</h2>
+			
+ <h3 id="text4"> 评分细则</h3>
+ 
+ <p> 评分由以下因素决定 </p>
+ 
+ <ul>
+   <li>朗读者的发音是否标准</li>
+   <li>朗读的句子是否连贯，通顺</li>
+   <li>对于发音评判有一定的容错率，例如第二声读成第三声</li>
+ </ul>
+     
+
+<footer>
+
+</footer>
+
+
+<div class="modal fade" id="waitModal">
+	  <div class="modal-dialog modal-sm ModalStyle">
+		  <img alt="" width="100px" height="100px" src="images/wait.svg" />
+      </div>
+      </div>
+						
+						
+<div class="modal fade" id="imgConfigModal" role="dialog" aria-labelledby="gridSystemModalLabel">
+                            <div class="modal-dialog ModalStyle1" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="gridSystemModalLabel">录音</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+																					
+                                        <form class="form-horizontal" id="imgForm" name="imgForm">
+                                        
+                                        <div class="form-group">
+																					
+																					<div class="row">
+																						
+																					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" id="timeDiv">
+																							<i class="stop"></i>&nbsp;
+																							00:00
+																					</div>
+																					
+																						
+																					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+                                            <button type="button" class="btn btn-success"  onclick="startRecording()">开始录制</button>
+																					</div>
+																					
+																					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+																						<button type="button" class="btn btn-warning" onclick="stopRecording()">停止录制</button>
+																						</div>
+																						
+																						<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+																							<button type="button" class="btn btn-primary"  onclick="getRanText()">生成随机文本</button>	
+																						</div>
+																						
+																					</div>
+																						
+                                        </div>
+																				
+																				<div class="form-group">
+																				<div class="toogle">
+																					<h3 class="m_3" id="title">请点击上方生成随机文本按钮！</h3>
+																					<p class="m_text" id="content">生成文本后才可进行录制</p>
+																				</div>		
+				                                </div>
+																				
+                                        </form>
+                                        
+                                       
+                                        
+                                        </div>
+                                    </div>
+                                    
+                                   
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>						
+		
+
+
+ 
+<script type="text/javascript" src="js/prettify/prettify.js"></script> 
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&skin=sunburst"></script>
+<script src="js/layout.js"></script>
+ <script src="js/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
+ <script src="js/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
+</body>
+</html>

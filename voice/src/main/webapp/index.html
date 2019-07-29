@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Opineo, Feedback Collection and Polling Widget - Documentation</title>
+<link rel="alternate" type="application/rss+xml" title="egrappler.com" href="feed/index.html">
+<link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
+        type="text/css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="other/style.css">
+<link rel="stylesheet" href="css/prettify.css">
+
+<link rel=3D"alternate" media=3D"only screen and(max-width:640px)" href=3D"=
+http://m.fuhaoku.com/zi/">
+
+<link rel=3D"stylesheet" type=3D"text/css" href=3D"http://www.fuhaoku.com/c=
+ss/c.css">
+
+
+<script src="js/jquery.min.js"></script> 
+    <link href="assets/css/payModal.css" rel="stylesheet" /> 
+		    <script src="assets/js/bootstrap/bootstrap.js"></script>
+<script src="HZRecorder.js"></script>
+
+</head>
+<style>
+	
+	.play {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background: url(images/speaker.jpg) no-repeat;
+    height: 18px;
+    width: 18px;
+    margin-right: 2px;
+    text-decoration: none;
+    vertical-align: middle;
+    background-position: 0 1px;
+    margin-left: 10px;
+}
+    .replay { 
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background: url(images/replay.png) no-repeat;
+    height: 18px;
+    width: 18px;
+    margin-right: 2px;
+    text-decoration: none;
+    vertical-align: middle;
+    background-position: 0 1px;
+    margin-left: 10px;
+}
+
+
+	    .ModalStyle{
+	    top: 1%;
+		left: 5%;
+	    }
+		
+		.ModalStyle1{
+		top: 15%;
+		}
+			
+			.start{
+display: inline-block;
+
+background-image: url("images/start.png");
+
+background-position: center center; /*图片显示的位置*/
+
+width: 16px; /*设置图片显示的宽*/
+
+height: 16px; /*图片显示的高*/
+
+}
+
+.stop{
+display: inline-block;
+
+background-image: url("images/stop.png");
+
+background-position: center center; /*图片显示的位置*/
+
+width: 16px; /*设置图片显示的宽*/
+
+height: 16px; /*图片显示的高*/
+
+}
+
+	    </style>
+		
+
+
+<body>	
+
+<header>
+  <div class="container">
+    <h2 class="docs-header"> 语音小助手 - 用户文档</h2>
+  </div>
+</header>
+<section>
+  <div class="container">
+    <ul class="docs-nav" id="menu-left">
+      <li><strong>发音练习</strong></li>
+      <li><a onclick="showModal(1)" style="cursor:pointer;" class=" ">字朗读</a></li>
+			<li><a onclick="showModal(2)" style="cursor:pointer;" class=" ">词朗读</a></li>
+			<li><a onclick="showModal(3)" style="cursor:pointer;" class=" ">句段朗读</a></li>
+			<li class="separator"></li>
+      <li><strong>错题练习</strong></li>
+      <li><a onclick="showDetailModal()" style="cursor:pointer;" class=" ">开始练习</a></li>
+
+    </ul>
+
+
+    <div class="docs-content">
+      <h2> 录制</h2>
+      <h3 id="text1"> 准备工作</h3>
+      
+      <p> 请务必保证麦克风为畅通状态，若系统提示"浏览器不支持麦克风"则请检查兼容性</p>
+			
+			<h3 id="text2"> 录制结果</h3>
+			
+			<p> 当录制完成时，系统会对期间的语音进行识别，可能存在以下结果 </p>
+			
+      <ul>
+        <li>语音不清晰，请检查录制环境，建议在安静的环境下进行</li>
+        <li>识别成功，可以获得您的朗读评分</li>
+        <li>系统错误，系统有待完善请联系管理员</li>
+      </ul>
+			
+			<h3 id="text3"> 录制限制</h3>
+			
+			<p> 录制期间存在以下限制 </p>
+			
+			<ul>
+			  <li>请尽量保持环境无噪音，避免识别错误</li>
+			  <li>录制时间请勿超过1分钟，系统不支持长语音识别</li>
+			  <li>录制期间请将普通话，系统仅支持普通话</li>
+			</ul>
+			
+			<h2> 系统评分</h2>
+			
+ <h3 id="text4"> 评分细则</h3>
+ 
+ <p> 评分由以下因素决定 </p>
+ 
+ <ul>
+   <li>朗读者的发音是否标准</li>
+   <li>朗读的句子是否连贯，通顺</li>
+   <li>对于发音评判有一定的容错率，例如第二声读成第三声</li>
+ </ul>
+     
+
+<footer>
+
+</footer>
+
+
+<div class="modal fade" id="waitModal">
+	  <div class="modal-dialog modal-sm ModalStyle">
+		  <img alt="" width="100px" height="100px" src="images/wait.svg" />
+      </div>
+      </div>
+						
+						
+<div class="modal fade" id="imgConfigModal" role="dialog" aria-labelledby="gridSystemModalLabel">
+                            <div class="modal-dialog ModalStyle1" role="document">
+                                <div class="modal-content"> 
+                                    <div class="modal-header">   
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="gridSystemModalLabel">录音</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+																					
+                                        <form class="form-horizontal" id="imgForm" name="imgForm">
+                                        
+                                        <div class="form-group">
+																					
+																					<div class="row">
+																						
+																					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" id="timeDiv">
+																							<i class="stop"></i>&nbsp;
+																							00:00
+																					</div>
+																					
+																						
+																					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+                                            <button type="button" class="btn btn-success"  onclick="startRecording()" id="startRecordBtn">开始录制</button>
+																					</div>
+																					
+																					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+																						<button type="button" class="btn btn-warning" id="stopRecordBtn" onclick="stopRecording()">停止录制</button>
+																						</div>
+																						
+																						<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2"> 
+																							<button type="button" class="btn btn-primary" id="ranTextButton" onclick="getRanText()">生成随机文本</button>	
+																						</div>
+																						
+																					</div>
+																						
+                                        </div>
+																				
+																				<div class="form-group">
+																				<div class="toogle">
+																					<h3 class="m_3" id="title">请点击上方生成随机文本按钮！</h3>
+																					<p class="m_text" id="content">生成文本后才可进行录制</p>
+																					
+													
+																							</div>
+				                                
+												</div>
+												
+												<div class="form-group">
+												<div style="line-height: 20px;" align="center">
+												
+												<table >
+												<tr id="content1">
+												
+												</tr>
+												</table>
+																																			
+												</div>
+												</div>
+												
+												<div class="form-group">
+												<div class="toogle">
+													<p class="m_text" id="content2">生成文本后才可进行录制</p>
+													</div>
+												</div>
+												
+												<div class="form-group">
+												<div class="toogle">
+													<p class="m_text" id="content3"></p>
+													</div>
+												</div>
+																				
+																				
+                                        </form>
+                                        
+                                       
+                                        
+                                        </div>
+                                    </div>
+                                    
+                                   
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>		
+
+<div class="modal fade" id="detailModal" role="dialog" aria-labelledby="gridSystemModalLabel">
+                            <div class="modal-dialog ModalStyle1" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="gridSystemModalLabel">历史错题</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                    <form class="form-horizontal" id="addServerForm" name="addServerForm">
+                                        <div class="row">
+							<h4 id="orderDetailTitle"></h4>
+							<table class="table table-bordered" id="datatable1">
+										<thead>
+											<tr>
+												<th>练习时间</th>
+												<th>错题内容</th>
+												<th>类型</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+										    <tr>
+											<td>111</td>
+											<td>111</td>
+											<td>111</td>
+											</tr>
+										</tbody>
+							</table>
+							</div>
+                                    </form>
+                                </div>
+                                    </div>
+                                    
+                                   
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>	
+						
+						<div id="audioDiv"></div>
+						 
+		
+<script>
+	
+	function hideWaitModal(){ 
+			$('#waitModal').modal('hide');
+			var button = document.getElementById("startRecordBtn");
+			button.removeAttribute("disabled");
+			var stopButton = document.getElementById("stopRecordBtn");
+			stopButton.setAttribute("disabled", "disabled");
+			setTimeout(function(){
+			var textButton = document.getElementById("ranTextButton");
+			textButton.removeAttribute("disabled"); 
+			},500); 
+			  
+
+		} 
+		
+		function showWaitModal(){
+			$('#waitModal').modal({backdrop:'static',keyboard:false});
+		}
+
+function hideModal(){
+			$('#imgConfigModal').modal('hide');
+		}
+		
+		var Type = 1;
+		var curContent = new Object();
+		
+		function showModal(type){
+		    
+		    if(type>0)
+		    {
+		    Type = type;
+		    getRanText();
+		    }
+			else Type = 1;
+			$('#imgConfigModal').modal();
+			
+		}
+		
+		var flag = 0;
+		
+		 var recorder;
+		        var audio = document.querySelector('audio');
+		        function startRecording() {
+		           
+			        if(flag==0)
+					{
+						$("#title").html("请点击上方生成随机文本按钮！")
+						$("#content").html("<font color=red> 请点击上方生成随机文本按钮！ </font>");
+						return ;
+					}
+					
+					 var textButton = document.getElementById("ranTextButton");
+					 textButton.setAttribute("disabled", "disabled");
+					 
+					 var button = document.getElementById("startRecordBtn");
+					button.setAttribute("disabled", "disabled");
+					
+					var stopButton = document.getElementById("stopRecordBtn");
+					stopButton.removeAttribute("disabled")
+					
+					 
+		            HZRecorder.get(function (rec) {
+		                recorder = rec;
+		                recorder.start();
+		                startClock();
+		            });
+		            
+		        }
+		        function stopRecording() {
+		           var stopButton = document.getElementById("stopRecordBtn");
+		           stopButton.setAttribute("disabled", "disabled");
+			        stopClock();
+		            recorder.stop();
+		            uploadAudio();
+		        }
+		        function playRecording() {
+		            recorder.play(audio);
+		        }  
+		        function uploadAudio() {
+			    showWaitModal(); 
+				
+				var formula = "得分公式：(正确读音个数+音标不准确的读音个数×0.5)/全部读音个数"
+								
+				var fd = new FormData();
+				fd.append("file", recorder.getBlob());
+				fd.append("content",curContent.content)
+				$.ajax({
+					type: "POST",
+					url: "load/uploadMav",
+					data:fd,
+					processData:false,
+                    contentType:false,
+					success: function(data)
+					{
+						console.log(data)
+						var da = JSON.parse(data);
+						if(da.success)
+						{
+						updateContent(da.reObj.array,da.reObj.path);
+						$("#content3").html('<font size="5">' + da.reObj.msg + "</font>" + "<br>" + formula)
+						} 
+						else{
+							alert("评测失败！原因：" + da.msg)
+						}
+						hideWaitModal();	
+						
+						//test(); 
+					}, 
+					error:function(data)
+					{
+						hideWaitModal();
+					}
+					
+				})
+				
+		        }
+  
+					 function getRanText()
+					 { 
+					     var textButton = document.getElementById("ranTextButton");
+					 textButton.setAttribute("disabled", "disabled");   
+					 console.log("!!!!!aa\n" + textButton.getAttribute("disabled")) 
+						 showWaitModal();
+						 $("#content1").html("")
+						 $("#content2").html("")
+						 $.ajax({
+							 type: "POST",
+							 url: "user/GetText?type=" + Type,
+							 success: function(data)
+							 {
+							 console.log(data)
+							     var da = JSON.parse(data)
+							     if(da.success==0 || da.reObj==null){
+							     $("#title").html("<font color=red> 系统发生错误 </font>");
+								 $("#content").html("");
+								 return;
+							     }
+								 $("#title").html("请阅读以下内容：");
+								 curContent.content = da.reObj.content;
+								 curContent.type = Type;
+								 curContent.explanation = da.reObj.explanation;
+								 if(Type==1 || Type==2)
+								 {  
+									 curContent.pinyin = da.reObj.pinyin;
+							/* 		 var divString = '<a  style="cursor:pointer;" class="replay" onclick=play("asd") title="播放标准读音"></a>' + '<a  style="cursor:pointer;" class="replay" onclick=play("asd") title="播放标准读音"></a>';
+									 da.reObj.pinyin[da.reObj.pinyin.length-1] += divString; */
+							//		 console.log("pinyin=" + da.reObj.pinyin)  
+									 addContent(da.reObj.content,da.reObj.pinyin,da.reObj.explanation)
+								 }
+								 else if(Type==3){
+									 $("#content1").html(da.reObj.content)
+									 $("#content2").html(da.reObj.explanation)
+								 }
+								 $("#content").html("");
+								 hideWaitModal();
+ 
+								 flag = 1; 
+							 },
+							 error: function(da)
+							 {
+								 $("#title").html("<font color=red> 系统发生错误 </font>");
+								 hideWaitModal();
+								 
+								 $("#content").html("");
+							 }
+						 })
+					 }   
+					 
+					var ss=0,mm=0;
+					
+					 function updateTime()
+					 {
+					 console.log("updateTime!")
+						 ss++;
+						 if(ss>=60) {
+						 ss%=60;
+						 mm++;
+						 }
+						 var s="";
+						 if(mm<10) s += "0" + mm;
+						 else s+= mm;
+						 s+= ":";
+						 if(ss<10) s += "0" + ss; 
+						 else s+= ss;
+						 $("#timeDiv").html('<i class="start"></i>&nbsp' + s);
+					 }
+					 
+					 var t;
+					 
+					 function startClock()
+					 {
+					     console.log("startClock!")
+						 $("#timeDiv").html('<i class="start"></i>&nbsp00:00');
+						 t = setInterval("updateTime()",1000);
+					 }
+					 
+					 function stopClock()
+					 {
+						 clearInterval(t);
+						 var s="";
+						 if(mm<10) s += "0" + mm;
+						 else s+= mm;
+						 s+= ":";
+						 if(ss<10) s += "0" + ss; 
+						 else s+= ss;
+						 $("#timeDiv").html('<i class="stop"></i>&nbsp;' + s);
+						 mm = 0;
+						 ss = 0;
+					 }
+		
+		            var daCache = [];
+					
+		            function showDetailModal()
+					{
+					
+					$.ajax({
+					type:"POST",
+					url:"user/GetHistoryMistake",
+					success:function(data)
+					{
+					console.log(data)
+					var da = JSON.parse(data)
+					daCache = da;
+					$("#datatable1 tbody").html('')
+					for(var i=0;i<da.length;i++)  
+					{
+				    var s = "";
+					if(da[i].problem.type==1)
+					s="字";
+					else if(da[i].problem.type==2)
+					s="词";
+					else s = "句段";
+					$("#datatable1 tbody").append('<tr>' + '<td>' + da[i].timeString + '</td>'+ '<td>' + da[i].problem.content + '</td>'  + '<td>' + s + '</td>' +'<td>' + '<button type="button" class="btn btn-success"  onclick="startMistakeRecording(this)">重新练习</button>' +  '</td>' + '</tr>')
+					}
+					
+					},
+					error:function(data)
+					{
+					alert("发生错误")
+					}
+					})
+
+					$("#detailModal").modal();
+					}
+					
+					function hideDetailModal()
+					{
+					$("#detailModal").modal('hide');
+					}
+					
+					function startMistakeRecording(obj)
+					{
+					console.log($(obj).parents("tr").children())  
+					hideDetailModal();
+				    $("#title").html("请阅读以下文本：");
+					
+					flag = 1; 
+					var type;
+					for(var i=0;i<daCache.length;i++)
+					if(daCache[i].problem.content==$(obj).parents("tr").children()[1].innerHTML)
+					{
+					console.log("find it : \n" + daCache[i])
+					type = daCache[i].problem.type;type;
+					
+					curContent.type = daCache[i].problem.type;
+					curContent.content = daCache[i].problem.content;
+					curContent.explanation = daCache[i].problem.explanation;
+					if(type==1 || type==2)
+					{ 
+					addContent(daCache[i].problem.content,daCache[i].problem.pinyin,daCache[i].problem.explanation)
+					curContent.pinyin = daCache[i].problem.pinyin;
+					}
+					else if(type==3){
+					$("#content1").html(daCache[i].problem.content)
+					$("#content2").html(daCache[i].problem.explanation)
+					}
+					break;
+					}
+
+					showModal(0);
+					}
+					 
+					 function addContent(text,pinyin,explanation)
+					 {
+						 var s = "";
+						 for(var i=0;i<text.length;i++)
+						 s+= '<td style="padding-right:10px;padding-left: 10px;"><p style="font-size: 20px;">'+ pinyin[i] + '<br></p>  <p style="font-size: 30px;">' + text[i] + '</p></td>';
+						 $("#content1").html(s)
+						 $("#content2").html(explanation)
+					 }
+					 
+					 function updateContent(index,url)
+					 {
+					     console.log(curContent)
+						 var text = [];
+						 for(var i=0;i<index.length;i++)
+						 if(index[i]==0) 
+							 text[i] = '<font color="red">' + curContent.content[i] + '</font>';
+						 else if(index[i]==1)
+						 text[i] = '<font color="orange">' + curContent.content[i] + '</font>';
+						 else{
+							 text[i] = curContent.content[i];
+						 }
+						 var divString = '<a  style="cursor:pointer;" title="点击播放标准读音" class="play" onclick=play("' + url  +  '")></a>' + '<a  style="cursor:pointer;" class="replay" title="点击回放录音" onclick=replay()></a>';
+						 if(curContent.type!=3)
+						 {
+							 for(var i=0;i<index.length;i++)
+							 if(index[i]==0) 
+								 curContent.pinyin[i] = '<font color="red">' + curContent.pinyin[i] + '</font>';
+							 else if(index[i]==1)
+							 curContent.pinyin[i] = '<font color="orange">' + curContent.pinyin[i] + '</font>';
+							 
+							 curContent.pinyin[curContent.pinyin.length-1] = curContent.pinyin[curContent.pinyin.length-1] + divString;
+							 addContent(text,curContent.pinyin,curContent.explanation)
+						 }
+						 else {
+							 var s = "";
+							 for(var i=0;i<text.length;i++)
+							 s += text[i];
+							 $("#content1").html("")
+							 $("#content2").html(s + divString)
+							// $("#content2").html(curContent.explanation)
+						 }
+						 console.log(text)
+						 
+					 }
+					 
+					 function play(url)
+					 {
+						 $("#audioDiv").html("")
+                         $("#audioDiv").html('<video controls="" autoplay="" name="media" hidden="true"><source src="' + url + '" type="audio/mp3"></video>')
+					 }
+					 
+					 
+					 function replay(){
+					     
+					     $("#audioDiv").html("") 
+                         $("#audioDiv").html('<video controls="" autoplay="" name="media" hidden="true"><source src="' + recorder.getURL() + '" type="audio/mp3"></video>')
+                         
+					 }
+					 
+					 
+					 
+					
+
+			
+		
+</script> 
+
+ 
+ 
+</body>
+</html>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.SolutionMapper" >
+  <resultMap id="BaseResultMap" type="com.code.model.Solution" >
+    <id column="solution_id" property="solutionId" jdbcType="INTEGER" />
+    <result column="user" property="user" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="problem_id" property="problemId" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    
+    <association property="problem" column="problem_id" javaType="com.code.model.Problem">
+             <id property="problemId" column="problem_id"/>
+            <result property="content" column="content"/>
+            <result property="type" column="type"/>
+            <result property="explanation" column="explanation"/>
+            <result property="pinyin" column="pinyin"/>
+       </association>
+       
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.code.model.Solution" extends="BaseResultMap" >
+    <result column="result" property="result" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" > 
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    solution_id, user, path, problem_id, date, score
+  </sql>
+  <sql id="Blob_Column_List" >
+    result
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.code.model.SolutionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from solution
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.code.model.SolutionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from solution
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from solution
+    where solution_id = #{solutionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from solution
+    where solution_id = #{solutionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.code.model.SolutionExample" >
+    delete from solution
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.code.model.Solution" >
+    insert into solution (solution_id, user, path, 
+      problem_id, date, score, 
+      result)
+    values (#{solutionId,jdbcType=INTEGER}, #{user,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{problemId,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, 
+      #{result,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.code.model.Solution" >
+    insert into solution
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="solutionId != null" >
+        solution_id,
+      </if>
+      <if test="user != null" >
+        user,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="problemId != null" >
+        problem_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="solutionId != null" >
+        #{solutionId,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="problemId != null" >
+        #{problemId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.code.model.SolutionExample" resultType="java.lang.Integer" >
+    select count(*) from solution
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update solution
+    <set >
+      <if test="record.solutionId != null" >
+        solution_id = #{record.solutionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.user != null" >
+        user = #{record.user,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null" >
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.problemId != null" >
+        problem_id = #{record.problemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.result != null" >
+        result = #{record.result,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update solution
+    set solution_id = #{record.solutionId,jdbcType=INTEGER},
+      user = #{record.user,jdbcType=VARCHAR},
+      path = #{record.path,jdbcType=VARCHAR},
+      problem_id = #{record.problemId,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      score = #{record.score,jdbcType=INTEGER},
+      result = #{record.result,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update solution
+    set solution_id = #{record.solutionId,jdbcType=INTEGER},
+      user = #{record.user,jdbcType=VARCHAR},
+      path = #{record.path,jdbcType=VARCHAR},
+      problem_id = #{record.problemId,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      score = #{record.score,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.code.model.Solution" >
+    update solution
+    <set >
+      <if test="user != null" >
+        user = #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="problemId != null" >
+        problem_id = #{problemId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" > 
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where solution_id = #{solutionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.code.model.Solution" >
+    update solution
+    set user = #{user,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      problem_id = #{problemId,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER},
+      result = #{result,jdbcType=LONGVARCHAR}
+    where solution_id = #{solutionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.code.model.Solution" >
+    update solution
+    set user = #{user,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      problem_id = #{problemId,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER}
+    where solution_id = #{solutionId,jdbcType=INTEGER}
+  </update> 
+  
+  <select id="GetHistoryMistake" resultMap="BaseResultMap" parameterType="java.lang.String">
+   select * from solution,problem where solution.score	&lt; 60 and solution.user=#{0} and solution.problem_id = problem.problem_id and not exists(select * from solution x where x.problem_id = solution.problem_id and score &gt;= 60) order by date desc
+  </select> 
+  
+</mapper>
